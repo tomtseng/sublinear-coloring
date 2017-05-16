@@ -8,12 +8,20 @@ class AdjMatrixGraph {
   ~AdjMatrixGraph();
 
   void AddUndirectedEdge(unsigned u, unsigned v);
+  // Return true if there is an edge between vertex u and vertex v
+  bool GetEdge(unsigned u, unsigned v) const;
+  // Get adjacency matrix for a chunk
+  // Returns bitvector where if vertex i in the chunk is adjacenct to vertex j
+  // in the chunk, then the (kChunkSize * i + j)-th bit (counting from LSB) is
+  // set
+  unsigned GetChunkSubmatrix(unsigned chunk_idx) const;
+
+  const unsigned num_verts;
+  const unsigned max_chunk_idx;
 
  private:
-
-  unsigned num_verts, num_edges;
-  // adjacency matrix, where the k-th bit (counting from the least significant
-  // bit) of adj[i][j] is set if vertex i is adjacent vertex 32 * j + k
+  // adjacency matrix, where the k-th bit (counting from LSB) of adj[i][j] is
+  // set if vertex i is adjacent vertex kVecWidth * j + k
   uint32_t** adj;
 };
 
