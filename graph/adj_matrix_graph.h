@@ -17,7 +17,6 @@ class AdjMatrixGraph {
   unsigned GetChunkSubmatrix(unsigned chunk_idx) const;
 
   const unsigned num_verts;
-  const unsigned max_chunk_idx;
 
  private:
   // adjacency matrix, where the k-th bit (counting from LSB) of adj[i][j] is

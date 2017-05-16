@@ -1,7 +1,7 @@
 CXX=g++
 CXXFLAGS=-std=c++11 -Wall -I$(CURDIR) -mavx -fopenmp
 LDFLAGS=-fopenmp
-SRCS=main.cc graph/adj_matrix_graph.cc graph/io.cc
+SRCS=main.cc color.cc graph/adj_matrix_graph.cc graph/io.cc
 OBJS=$(subst .cc,.o,$(SRCS))
 DEPS=hellomake.h
 RM=rm -f

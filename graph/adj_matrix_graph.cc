@@ -6,8 +6,7 @@
 const unsigned kWordWidth = 32;
 
 AdjMatrixGraph::AdjMatrixGraph(unsigned _num_verts) :
-  num_verts(_num_verts),
-  max_chunk_idx((num_verts + kChunkSize - 1) / kChunkSize) {
+  num_verts(_num_verts) {
   // round num_verts to nearest multiple of kChunkSize. This is to avoid
   // out-of-bounds problems in GetChunkSubmatrix without needing annoying bounds checking
   const unsigned rounded_num_verts =
