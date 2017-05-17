@@ -19,10 +19,23 @@ using o(n) colors?
 
 In this project, we show that in the word RAM model, we can color a 3-colorable
 graph with O(n / log log n) colors in O(n) time. See writeup/writeup.pdf for a
-description of the algorithm. For fun (assuming a loose definition of "fun"),
-this repository also contains some proof-of-concept code for the algorithm.
+description of the algorithm.
+
+### Algorithm
+
+See writeup/writeup.pdf for details.
+
+The high-level idea is as follows: we break the vertices into chunks of size k,
+and for the subgraph induced by each chunk, we 3-color the subgraph by brute
+force (using a different set of 3 colors for each subgraph). This gives a 3n/k
+coloring of the graph. We set k to be just a little bigger than a constant. To
+keep the runtime linear, we use some bit hackery to get some word-level
+parallelism.
 
 ### Running the code
+
+For fun (assuming a loose definition of "fun"),
+this repository also contains some proof-of-concept code for the algorithm.
 
 TODO
 

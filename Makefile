@@ -1,5 +1,5 @@
 CXX=g++
-CXXFLAGS=-std=c++11 -Wall -I$(CURDIR) -mavx -fopenmp
+CXXFLAGS=-std=c++11 -Wall -I$(CURDIR) -fopenmp
 LDFLAGS=-fopenmp
 SRCS=main.cc color.cc graph/adj_matrix_graph.cc graph/io.cc
 OBJS=$(subst .cc,.o,$(SRCS))
