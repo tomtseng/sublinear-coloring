@@ -4,6 +4,6 @@
 
 #include <vector>
 
-std::vector<unsigned> GetColoring(const AdjMatrixGraph& graph);
+std::vector<int> GetColoring(const AdjMatrixGraph& graph);
 
 #endif // COLOR_H_

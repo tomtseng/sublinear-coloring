@@ -7,11 +7,11 @@ using std::ifstream;
 using std::string;
 
 AdjMatrixGraph ReadAdjMatrixFromFile(const string& file_name) {
-  unsigned num_verts, num_edges;
+  int num_verts, num_edges;
   ifstream fin(file_name);
   fin >> num_verts >> num_edges;
   AdjMatrixGraph graph(num_verts);
-  for (unsigned i = 0; i < num_edges; i++) {
+  for (int i = 0; i < num_edges; i++) {
     int u, v;
     fin >> u >> v;
     graph.AddUndirectedEdge(u, v);
