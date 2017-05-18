@@ -8,7 +8,7 @@
 
 using std::cout;
 
-#define DEBUG
+//#define DEBUG
 
 int main(int argc, char* argv[]) {
   std::ios::sync_with_stdio(false);
@@ -29,8 +29,8 @@ int main(int argc, char* argv[]) {
   double duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
   cout << "Time elapsed: " << duration << " seconds" << std::endl;
 
-  #ifdef DEBUG
   const int num_verts = graph.num_verts;
+  #ifdef DEBUG
   bool bad_coloring = false;
   #pragma omp parallel for
   for (int i = 0; i < num_verts; i++) {

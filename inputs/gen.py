@@ -5,7 +5,7 @@ import numpy as np
 
 # parts[i] is the number of vertices of the i-th set in a partition of the
 # graph, where no edges go between two vertices in the same set.
-parts = [5, 5, 5]
+parts = [1000, 1000, 1000]
 # probability of having an edge between any two vertices that belong to
 # different sets in the partition
 p = 0.5
@@ -34,7 +34,9 @@ edges = map(lambda (a, b):
 edges = np.random.permutation(edges)
 
 random_string = ''.join(random.choice(string.lowercase) for i in range(6))
-with open('generated-' + random_string + '.txt', 'w') as f:
+filename = 'generated-' + random_string + '.txt'
+with open(filename, 'w') as f:
     f.write('{} {}\n'.format(n, len(edges)))
     for (u, v) in edges:
         f.write('{} {} '.format(u, v))
+print "Written to " + filename
