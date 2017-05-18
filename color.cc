@@ -56,7 +56,7 @@ static int BitBinarySearch(uint32_t bits) {
   int result = 0;
   for (int search_range = 16; search_range > 0;
        search_range /= 2, search_mask >>= search_range) {
-    if (search_mask & bits) {
+    if (!(search_mask & bits)) {
       result += search_range;
       bits >>= search_range;
     }
@@ -87,7 +87,7 @@ bool GetColoring(const AdjMatrixGraph& graph, vector<int>* full_coloring) {
     low_ones |= 1;
   }
 
-  bool good_coloring = false;
+  bool good_coloring = true;
   #pragma omp parallel for
   for (int chk = 0; chk < num_chunks; chk++) {
     uint32_t submatrix = graph.GetChunkSubmatrix(chk);
@@ -97,8 +97,8 @@ bool GetColoring(const AdjMatrixGraph& graph, vector<int>* full_coloring) {
     for (int r = 0; r < kChunkSize; r++, submatrix >>= kChunkSize) {
       uint32_t row = (submatrix & kChunkMask) * low_ones;
       for (int i = 0; i < kNumColors; i++) {
-        products[i] |=
-          ((~(high_ones - (row & packed_colorings[i]))) & high_ones) << r;
+        products[i] |= ((~(high_ones - (row & packed_colorings[i]))) & high_ones)
+          >> (kChunkSize -r);
       }
     }
     // corresponds to x in the writeup; will hold a 1 in a block if the coloring
