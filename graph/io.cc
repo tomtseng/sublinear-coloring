@@ -1,4 +1,6 @@
 #include <fstream>
+#include <iostream>
+#include <limits>
 #include <string>
 #include "adj_matrix_graph.h"
 #include "io.h"
@@ -7,9 +9,13 @@ using std::ifstream;
 using std::string;
 
 AdjMatrixGraph ReadAdjMatrixFromFile(const string& file_name) {
-  int num_verts, num_edges;
+  long long num_verts, num_edges;
   ifstream fin(file_name);
   fin >> num_verts >> num_edges;
+  if (num_verts > std::numeric_limits<int>::max()) {
+    std::cerr << "Oops, we can't handle graphs that large." << '\n';
+    return AdjMatrixGraph(0);
+  }
   AdjMatrixGraph graph(num_verts);
   for (int i = 0; i < num_edges; i++) {
     int u, v;
