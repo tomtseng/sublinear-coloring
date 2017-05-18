@@ -11,7 +11,7 @@ class AdjMatrixGraph {
   // Return true if there is an edge between vertex u and vertex v
   bool GetEdge(int u, int v) const;
   // Get adjacency matrix for a chunk
-  // Returns bitvector where if vertex i in the chunk is adjacenct to vertex j
+  // Returns bitvector where if vertex i in the chunk is adjacent to vertex j
   // in the chunk, then the (kChunkSize * i + j)-th bit (counting from LSB) is
   // set
   uint32_t GetChunkSubmatrix(int chunk_idx) const;

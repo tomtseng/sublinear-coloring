@@ -20,9 +20,14 @@ int main(int argc, char* argv[]) {
 
   AdjMatrixGraph graph = ReadAdjMatrixFromFile(argv[1]);
   std::clock_t start = std::clock();
-  std::vector<int> coloring = GetColoring(graph);
+  std::vector<int> coloring;
+  if (!GetColoring(graph, &coloring)) {
+    cout <<
+      "Coloring failed. Are you sure the input graph is 3-colorable?\n";
+    return 0;
+  }
   double duration = (std::clock() - start) / (double) CLOCKS_PER_SEC;
-  cout << "Time elapsed: " << duration << " seconds\n";
+  cout << "Time elapsed: " << duration << " seconds" << std::endl;
 
   #ifdef DEBUG
   const int num_verts = graph.num_verts;
@@ -36,8 +41,8 @@ int main(int argc, char* argv[]) {
       }
     }
   }
-  if (!bad_coloring) {
-    cout << "BAD COLORING\n";
+  if (bad_coloring) {
+    cout << "DEBUG: BAD COLORING\n";
   }
   #endif
 

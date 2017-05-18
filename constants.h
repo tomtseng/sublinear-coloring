@@ -3,7 +3,7 @@
 
 // Number of vertices to consider at once to color
 const int kChunkSize = 4;
-// mask of kChunkSize 1's right-aligned
+// mask of kChunkSize lower-order 1's
 const int kChunkMask = 0xf;
 
 #endif // CONSTANTS_H_
