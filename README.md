@@ -34,10 +34,26 @@ parallelism.
 
 ### Running the code
 
-For fun (assuming a loose definition of "fun"),
-this repository also contains some proof-of-concept code for the algorithm.
+For fun (assuming a loose definition of "fun"), this repository also contains
+some proof-of-concept code for the algorithm. Type `make` and then `./run <input
+graph file>`, e.g. `./run inputs/petersen.txt` to confirm for yourself that the
+code does indeed run without exploding immediately.
 
-TODO
+The input format can be seen in graph/io.h. There's a simple graph generator in
+inputs/gen.py. It's really slow because it's written in Python and because it iterates over
+O(n^2) pairs of vertices.
+
+Unlike in the word RAM model, we don't have computers that actually scale their
+word size to the input size. Instead, the code always treats `uint32_t` as a
+``word,'' i.e. the word size is 32 bits. With this, we output 3n/4-colorings
+of 3-colorable graphs. Are you impressed yet?
+
+As a bonus, this code uses OpenMP to demonstrate that the algorithm has great
+parallelism. The coloring for each chunk can be found in parallel. Except you
+can't get any noticeable speedup because (1) all the running time is spent
+reading in the input and (2) you can't run this code on any respectably large
+graph because storing a graph as an adjacency matrix floods your machine's
+memory.
 
 ### Open questions
 
