@@ -4,10 +4,10 @@
 
 Suppose we're given a 3-colorable graph, and we want to give this graph a vertex
 coloring. In general, we cannot hope to give an optimal coloring unless P = NP.
-Instead we look for approximation algorithms that give a good coloring in
+Instead we look for approximation algorithms that give good colorings in
 polynomial time. In 2014, Kawarabayashi and Thorup gave an algorithm that finds
-an O(n^0.19996) coloring in polynomial time. This is the latest in a long
-sequence of works that give O(n^c) colorings for steadily decreasing values of
+an O(n^0.19996)-coloring in polynomial time. This is the latest in a long
+sequence of works that give O(n^c)-colorings for steadily decreasing values of
 c.
 
 An interesting extension that has no use in either theory or practice is
@@ -34,7 +34,7 @@ parallelism.
 ### Running the code
 
 For fun (assuming a loose definition of "fun"), this repository also contains
-some proof-of-concept code for the algorithm. Type `make` and then `./run <input
+some proof-of-concept code for the algorithm. Run `make` and then `./run <input
 graph file>`, e.g. `./run inputs/petersen.txt` to confirm for yourself that the
 code does indeed run without exploding immediately.
 
