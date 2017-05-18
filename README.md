@@ -6,20 +6,19 @@ Suppose we're given a 3-colorable graph, and we want to give this graph a vertex
 coloring. In general, we cannot hope to give an optimal coloring unless P = NP.
 Instead we look for approximation algorithms that give a good coloring in
 polynomial time. In 2014, Kawarabayashi and Thorup gave an algorithm that finds
-an O(n^1.9996) coloring in polynomial time. This is the latest in a long
+an O(n^0.19996) coloring in polynomial time. This is the latest in a long
 sequence of works that give O(n^c) colorings for steadily decreasing values of
 c.
 
-An interesting question that is useless both in theory and in practice is to
-stipulate a stronger running time requirement. In particular, we wonder what the
-best coloring achievable is using O(n) running time, where n is the number of
-vertices in the graph. This means that if the graph is dense, we cannot even
+An interesting extension that has no use in either theory or practice is
+to stipulate a stronger running time requirement. In particular, we wonder what
+the best coloring achievable is using O(n) running time, where n is the number
+of vertices in the graph. This means that if the graph is dense, we cannot even
 afford to look at all the edges of the graph. Is it possible to color the graph
 using o(n) colors?
 
 In this project, we show that in the word RAM model, we can color a 3-colorable
-graph with O(n / log log n) colors in O(n) time. See writeup/writeup.pdf for a
-description of the algorithm.
+graph with O(n / log log n) colors in O(n) time.
 
 ### Algorithm
 
@@ -45,7 +44,7 @@ O(n^2) pairs of vertices.
 
 Unlike in the word RAM model, we don't have computers that actually scale their
 word size to the input size. Instead, the code always treats `uint32_t` as a
-``word,'' i.e. the word size is 32 bits. With this, we output 3n/4-colorings
+"word," i.e. the word size is 32 bits. With this, we output 3n/4-colorings
 of 3-colorable graphs. Are you impressed yet?
 
 As a bonus, this code uses OpenMP to demonstrate that the algorithm has great
@@ -58,7 +57,7 @@ memory.
 ### Open questions
 
 * This algorithm crucially relies on the word RAM model. Can we achieve an o(n)
-  coloring without all the bit hackery?
+  coloring without the bit hackery?
 * Is it possible to achieve a truly sublinear coloring, i.e. an O(n^(1 - c))
   coloring for some c > 0?
 * What lower bounds can we prove assuming this O(n) running time restriction?
