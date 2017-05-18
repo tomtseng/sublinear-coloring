@@ -6,6 +6,8 @@ class AdjMatrixGraph {
  public:
   AdjMatrixGraph(int _num_verts);
   ~AdjMatrixGraph();
+  AdjMatrixGraph(const AdjMatrixGraph& other);
+  AdjMatrixGraph& operator=(const AdjMatrixGraph& other);
 
   void AddUndirectedEdge(int u, int v);
   // Return true if there is an edge between vertex u and vertex v
@@ -16,12 +18,14 @@ class AdjMatrixGraph {
   // set
   uint32_t GetChunkSubmatrix(int chunk_idx) const;
 
-  const int num_verts;
+  int num_verts;
 
  private:
   // adjacency matrix, where the k-th bit (counting from LSB) of adj[i][j] is
   // set if vertex i is adjacent vertex kVecWidth * j + k
   uint32_t** adj;
+
+  void InitAdj(uint32_t** init_vals = nullptr);
 };
 
 #endif // GRAPH_ADJ_MATRIX_GRAPH_H_

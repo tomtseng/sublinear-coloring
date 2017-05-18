@@ -5,27 +5,54 @@
 // Number of bits of one "word" (uint32_t)
 const int kWordWidth = 32;
 
-AdjMatrixGraph::AdjMatrixGraph(int _num_verts) :
-  num_verts(_num_verts) {
-  // round num_verts to nearest multiple of kChunkSize. This is to avoid
-  // out-of-bounds problems in GetChunkSubmatrix without needing annoying bounds checking
-  const int rounded_num_verts =
-    (num_verts + kChunkSize - 1) / kChunkSize * kChunkSize;
+static inline int RoundUp(int num, int granularity) {
+  return (num + granularity - 1) / granularity * granularity;
+}
+
+// Initializes adj. Fills with zeroes if init_vals is nullptr, otherwise copies
+// values fomr init_vals into adj
+void AdjMatrixGraph::InitAdj(uint32_t** init_vals) {
+  // round num_verts up to nearest multiple of kChunkSize. This is to avoid
+  // out-of-bounds problems in GetChunkSubmatrix without needing annoying bounds
+  // checking
+  const int rounded_num_verts = RoundUp(num_verts, kChunkSize);
   const int num_vecs = (rounded_num_verts + kWordWidth - 1) / kWordWidth;
-  uint32_t* arr = new uint32_t[rounded_num_verts * num_vecs];
+  const int arr_len = rounded_num_verts * num_vecs;
+  uint32_t* arr = new uint32_t[arr_len];
   adj = new uint32_t*[rounded_num_verts];
   #pragma omp parallel for
   for (int i = 0; i < rounded_num_verts; i++) {
     adj[i] = &arr[i * num_vecs];
-    std::fill(adj[i], adj[i] + num_vecs, 0);
+  }
+  if (init_vals == nullptr) {
+    std::fill(adj[0], adj[0] + arr_len, 0);
+  } else {
+    std::copy(init_vals[0], init_vals[0] + arr_len, adj[0]);
   }
 }
 
+AdjMatrixGraph::AdjMatrixGraph(int _num_verts) :
+  num_verts(_num_verts) {
+  InitAdj();
+}
+
 AdjMatrixGraph::~AdjMatrixGraph() {
-  if (adj != nullptr) {
-    delete[] adj[0];
-    delete[] adj;
+  delete[] adj[0];
+  delete[] adj;
+}
+
+AdjMatrixGraph::AdjMatrixGraph(const AdjMatrixGraph& other) :
+  num_verts(other.num_verts) {
+  InitAdj(other.adj);
+}
+
+AdjMatrixGraph& AdjMatrixGraph::operator=(const AdjMatrixGraph& other) {
+  if (this != &other) {
+    this->~AdjMatrixGraph();
+    num_verts = other.num_verts;
+    InitAdj(other.adj);
   }
+  return *this;
 }
 
 void AdjMatrixGraph::AddUndirectedEdge(int u, int v) {

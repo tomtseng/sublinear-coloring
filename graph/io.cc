@@ -13,11 +13,11 @@ AdjMatrixGraph ReadAdjMatrixFromFile(const string& file_name) {
   ifstream fin(file_name);
   fin >> num_verts >> num_edges;
   if (num_verts > std::numeric_limits<int>::max()) {
-    std::cerr << "Oops, we can't handle graphs that large." << '\n';
+    std::cerr << "Oops, this can't handle graphs that large.\n";
     return AdjMatrixGraph(0);
   }
   AdjMatrixGraph graph(num_verts);
-  for (int i = 0; i < num_edges; i++) {
+  for (long long i = 0; i < num_edges; i++) {
     int u, v;
     fin >> u >> v;
     graph.AddUndirectedEdge(u, v);
